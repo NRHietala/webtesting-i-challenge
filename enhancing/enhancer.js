@@ -1,15 +1,21 @@
 function success(item) {
-  return item.enhancement === 20 ? item : item.enhancement++;
+  if (item.enhancement === 20) {
+    return item;
+  } else {
+    item.enhancement++;
+  }
 }
 
 function fail(item) {
   if (item.enhancement < 15) {
-    item.durability - 5;
-  } else if (item.enhancement >= 15) {
+    item.durability -= 5;
+  } else {
     item.durability -= 10;
+  }
+
+  if (item.enhancement >= 16) {
     item.enhancement--;
   }
-  return item;
 }
 
 function repair(item) {
@@ -18,7 +24,9 @@ function repair(item) {
 }
 
 function get(item) {
-  return { ...item };
+  if (item.enhancement > 0) {
+    item.name = `[+${item.enhancement}]${item.name}`;
+  }
 }
 
 module.exports = {
